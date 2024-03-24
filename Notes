@@ -1,0 +1,4 @@
+- Dependency vs DevDependency
+- process.exit(1)
+- app.on
+- we use app.use whenever we want to use middleware or do configuration setting
