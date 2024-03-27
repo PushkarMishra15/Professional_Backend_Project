@@ -1,15 +1,13 @@
 import { v2 as cloudinary} from "cloudinary";
-import { response } from "express";
-import fs from "fs"
-import { type } from "os";
-          
+import fs from "fs";
+
 cloudinary.config({ 
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY, 
-  api_secret: CLOUDINARY_API_SECRET
+  api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-const uploadOnCloudnary = async(localFilePAth)=>{
+const uploadOnCloudinary = async(localFilePAth)=>{
     
      try{
           
@@ -23,7 +21,9 @@ const uploadOnCloudnary = async(localFilePAth)=>{
         })
 
         // file has been uploaded successfully
-        console.log("file is uploaded on cloudinary", response.url);
+     //    console.log("file is uploaded on cloudinary", response.url);
+       fs.unlinkSync(localFilePAth)
+        
         return response;
      }catch(error){
           fs.unlinkSync(localFilePAth)  // remove the locally saved temporary file as the upload operation got failed
@@ -37,4 +37,4 @@ cloudinary.uploader.upload("https://upload.wikimedia.org/wikipedia/commons/a/ae/
   { public_id: "olympic_flag" }, 
   function(error, result) {console.log(result); });
 
-  export {uploadOnCloudnary}
+  export {uploadOnCloudinary};
